@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 
-project(fs_http_serverTests LANGUAGES CXX)
+project(fs_http_serverTests LANGUAGES C)
 
 include(../cmake/project-is-top-level.cmake)
 include(../cmake/folders.cmake)
@@ -14,9 +14,9 @@ endif()
 
 # ---- Tests ----
 
-add_executable(fs_http_server_test source/fs_http_server_test.cpp)
+add_executable(fs_http_server_test source/fs_http_server_test.c)
 target_link_libraries(fs_http_server_test PRIVATE fs_http_server::fs_http_server)
-target_compile_features(fs_http_server_test PRIVATE cxx_std_17)
+target_compile_features(fs_http_server_test PRIVATE c_std_23)
 
 add_test(NAME fs_http_server_test COMMAND fs_http_server_test)
 

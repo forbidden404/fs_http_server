@@ -61,8 +61,8 @@ cmake --install build --config Release
 This project exports a CMake package to be used with the [`find_package`][3]
 command of CMake:
 
-* Package name: `fs_http_server`
-* Target name: `fs_http_server::fs_http_server`
+- Package name: `fs_http_server`
+- Target name: `fs_http_server::fs_http_server`
 
 Example usage:
 

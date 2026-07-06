@@ -6,8 +6,7 @@ project(
     fs_http_server
     VERSION 0.1.0
     DESCRIPTION "A simple HTTP server written in C"
-    HOMEPAGE_URL "https://example.com/"
-    LANGUAGES CXX
+    LANGUAGES C
 )
 
 include(cmake/project-is-top-level.cmake)
@@ -17,7 +16,7 @@ include(cmake/variables.cmake)
 
 add_library(
     fs_http_server_fs_http_server
-    source/fs_http_server.cpp
+    source/fs_http_server.c
 )
 add_library(fs_http_server::fs_http_server ALIAS fs_http_server_fs_http_server)
 
@@ -25,7 +24,7 @@ include(GenerateExportHeader)
 generate_export_header(
     fs_http_server_fs_http_server
     BASE_NAME fs_http_server
-    EXPORT_FILE_NAME export/fs_http_server/fs_http_server_export.hpp
+    EXPORT_FILE_NAME export/fs_http_server/fs_http_server_export.h
     CUSTOM_CONTENT_FROM_VARIABLE pragma_suppress_c4251
 )
 
@@ -55,7 +54,12 @@ target_include_directories(
     "\$<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/export>"
 )
 
-target_compile_features(fs_http_server_fs_http_server PUBLIC cxx_std_17)
+target_compile_features(fs_http_server_fs_http_server PUBLIC c_std_23)
+if (MSVC)
+    add_compile_options(/W4 /WX)
+else()
+    add_compile_options(-Wall -Wextra -pedantic -Werror)
+endif()
 
 # ---- Install rules ----
 

@@ -11,7 +11,7 @@ endif()
 
 # ---- Suppress C4251 on Windows ----
 
-# Please see include/fs_http_server/fs_http_server.hpp for more details
+# Please see include/fs_http_server/fs_http_server.h for more details
 set(pragma_suppress_c4251 "
 /* This needs to suppress only for MSVC */
 #if defined(_MSC_VER) && !defined(__ICL)
