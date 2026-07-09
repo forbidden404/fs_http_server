@@ -1,17 +1,8 @@
 #include "fs_http_server/request.h"
 
 #include "fs_http_server/bstrlib.h"
+#include "fs_http_server/dbg.h"
 #include "fs_http_server/hashmap.h"
-
-struct HttpRequest {
-	bstring method;
-	bstring request_target;
-	bstring http_version;
-
-	Hashmap *headers;
-
-	void *data;
-};
 
 HttpRequestHandle fs_http_request_from_buffer(bstring buffer)
 {
@@ -33,4 +24,18 @@ HttpRequestHandle fs_http_request_from_buffer(bstring buffer)
 error:
 
 	return NULL;
+}
+
+void fs_http_request_delete(HttpRequestHandle request)
+{
+	check_mem(request);
+
+	bdestroy(request->method);
+	bdestroy(request->request_target);
+	bdestroy(request->http_version);
+	Hashmap_destroy(request->headers);
+	free(request->data);
+
+error:
+	return;
 }

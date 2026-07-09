@@ -4,6 +4,7 @@ project(fs_http_serverTests LANGUAGES C)
 
 include(../cmake/project-is-top-level.cmake)
 include(../cmake/folders.cmake)
+include(../cmake/functions.cmake)
 
 # ---- Dependencies ----
 

@@ -11,6 +11,7 @@ project(
 
 include(cmake/project-is-top-level.cmake)
 include(cmake/variables.cmake)
+include(cmake/functions.cmake)
 
 # ---- Declare library ----
 
@@ -19,6 +20,17 @@ add_library(
     source/fs_http_server.c
 )
 add_library(fs_http_server::fs_http_server ALIAS fs_http_server_fs_http_server)
+
+target_sources_grouped(
+  fs_http_server_fs_http_server TREE "${PROJECT_SOURCE_DIR}" FILES
+  source/bstrlib.c
+  source/darray.c
+  source/fs_http_server.c
+  source/hashmap.c
+  source/request.c
+  source/response.c
+  source/route_matching.c
+)
 
 include(GenerateExportHeader)
 generate_export_header(
@@ -56,9 +68,9 @@ target_include_directories(
 
 target_compile_features(fs_http_server_fs_http_server PUBLIC c_std_23)
 if (MSVC)
-    add_compile_options(/W4 /WX)
+  add_compile_options(/W4 /WX)
 else()
-    add_compile_options(-Wall -Wextra -pedantic -Werror)
+  add_compile_options(-Wall -Wextra -pedantic -Werror -Wno-gnu-zero-variadic-macro-arguments)
 endif()
 
 # ---- Install rules ----
